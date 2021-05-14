@@ -25,7 +25,11 @@
                 <td>{{session.date}}</td>
                 <td>{{session.min_age_limit}}</td>
                 <td>
-                  <span class="badge badge-pill " [ngClass]="{'badge-danger':session.available_capacity===0, 'badge-success':session.available_capacity>0}">{{session.available_capacity}}</span>
+                  <span
+                    class="badge badge-pill "
+                    [ngClass]="{'badge-danger':session.available_capacity===0, 'badge-success':session.available_capacity>0}"
+                    >{{session.available_capacity}}</span
+                  >
                 </td>
                 <td>{{ session.vaccine}}</td>
               </tr>
