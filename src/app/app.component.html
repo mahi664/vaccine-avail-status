@@ -1,0 +1,43 @@
+<h4>
+  {{topMessage}}
+</h4>
+<!-- <p *ngFor="let message of uiMessages">
+  {{message}}
+  {{errorMessage}}
+</p> -->
+
+<div class="container">
+  <div class="row" style="font-size:smaller">
+    <div class="col-md-4" *ngFor="let slot of vaccineSlots.centers">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{slot.name}} | {{slot.address}}</h5>
+          <small style="font-size: 13px">
+            <table class="table">
+              <!-- <thead> -->
+              <th>Date</th>
+              <th>Age</th>
+              <th>Avail</th>
+              <th>Vaccine</th>
+              <!-- </thead> -->
+              <!-- <tdata> -->
+              <tr *ngFor="let session of slot.sessions">
+                <td>{{session.date}}</td>
+                <td>{{session.min_age_limit}}</td>
+                <td>
+                  <span class="badge badge-pill " [ngClass]="{'badge-danger':session.available_capacity===0, 'badge-success':session.available_capacity>0}">{{session.available_capacity}}</span>
+                </td>
+                <td>{{ session.vaccine}}</td>
+              </tr>
+              <!--</tdata> -->
+            </table>
+
+            <!-- <p *ngFor="let session of slot.sessions"> {{session.date}} </p> -->
+          </small>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
