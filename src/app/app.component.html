@@ -1,17 +1,86 @@
-<h4>
+<h6 class="text-danger">
   {{topMessage}}
-</h4>
+</h6>
 <!-- <p *ngFor="let message of uiMessages">
   {{message}}
   {{errorMessage}}
 </p> -->
-
 <div class="container">
+  <div class="row" style="font-size:small">
+    <div class="col-md-1">Search By:</div>
+    <div class="col-md-2">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input
+            type="radio"
+            class="form-check-input"
+            name="optradio"
+            checked (change)="changeSearchBy()"
+          />PIN Code
+        </label>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input
+            type="radio"
+            class="form-check-input"
+            name="optradio" (change)="changeSearchBy()"
+          />District
+        </label>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-2" *ngIf="isSearchByPin">
+      <div class="form-group">
+        <label for="usr">PIN Code:</label>
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          id="usr"
+          placeholder="Enter Pin code"
+          [(ngModel)]='pinCode'
+          required
+        />
+      </div>
+    </div>
+    <div class="col-md-3" *ngIf="!isSearchByPin">
+      <div class="form-group">
+        <label for="sel1">Select State:</label>
+        <select class="form-control form-control-sm" id="sel1" [(ngModel)]='selectedState' (change)="populateDistricts()">
+          <option *ngFor="let state of states.states" value="{{state.state_id}}">{{state.state_name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3" *ngIf="!isSearchByPin">
+      <div class="form-group">
+        <label for="sel1">Select District:</label>
+        <select class="form-control form-control-sm" id="sel1" [(ngModel)]='selectedDistrict'>
+          <option *ngFor="let district of districts.districts" value="{{district.district_id}}">{{district.district_name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <label for="sel1" > </label>
+      <button type="button" style="margin-top:32px" class="btn btn-sm btn-primary" (click)="fetchAllAvailSlots()">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="displaySlots">
   <div class="row" style="font-size:smaller">
     <div class="col-md-4" *ngFor="let slot of vaccineSlots.centers">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{slot.name}} | {{slot.address}}</h5>
+          <p class="card-title" style="text:small">{{slot.name}} | {{slot.address}} | 
+            <span
+                    class="badge badge-pill "
+                    [ngClass]="{'badge-danger':slot.fee_type==='Paid', 'badge-success':slot.fee_type==='Free'}"
+                    >{{slot.fee_type}}</span>
+          </p>
           <small style="font-size: 13px">
             <table class="table">
               <!-- <thead> -->
